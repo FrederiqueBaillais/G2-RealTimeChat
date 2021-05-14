@@ -1,6 +1,4 @@
 function connexionMongo() {
-    const mongoose = require('mongoose');
-
     // make a connexion 
     const dbUrl = "mongodb+srv://FredBail:S3xBLma5CV3nHSd@cluster0.cbidg.mongodb.net/Cluster0?retryWrites=true&w=majority";
     mongoose.connect(dbUrl, {

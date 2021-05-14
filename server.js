@@ -8,7 +8,6 @@ const io = require('socket.io')(http); // npm install socket.io
 // npm install prototype // npm ci
 const path = require('path'); // npm install path
 
-//const dbUrl = "mongodb+srv://user1:user1@chat2.tvgl2.mongodb.net/chat2?retryWrites=true&w=majority";
 const dbUrl = "mongodb+srv://FredBail:S3xBLma5CV3nHSd@cluster0.cbidg.mongodb.net/Cluster0?retryWrites=true&w=majority";
 const Message = mongoose.model('Message', { name: String, message: String });
 
@@ -61,6 +60,42 @@ io.on('connection', function(socket) {
     console.log('a user is connected');
     socket.on("conv", function(name, msg) { // conv = le contenu de l'entrée par l'utilisateur
         console.log("that's ok");
+        addInDB(name, msg);
         io.emit("tsmsg", name, msg); // tsmsg = tous les messagers
     });
+
 });
+
+// ajoute les infos dans la DB
+function addInDB(username, messag) {
+    console.log('Ca fonctionne ?');
+
+    // get reference to database
+    let db = connexionMongo();
+
+    db.on('error', console.error.bind(console, 'connection error:'));
+
+    db.once('open', function() {
+        console.log("Connexion Successfull !");
+
+        // define Schema
+        var MsgSchema = mongoose.Schema({
+            name: String,
+            msg: String
+        });
+
+        // compile schema to model
+        let Msg = mongoose.model('conversation', MsgSchema, 'Cluster0');
+
+        // a document instance
+        let msg1 = new Msg({ name: username, msg: messag });
+
+        // save model to database
+        msg1.save(function(err, book) {
+            if (err) return console.error(err);
+            console.log(book.name + " added in collection.");
+
+        });
+
+    });
+}
