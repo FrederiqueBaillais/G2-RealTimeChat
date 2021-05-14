@@ -5,13 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- COMPLETER LA DESCRIPTION -->
-    <meta name="description" content="#" />
-    <!-- Si CSS -->
+    <meta name="description" content="Real Time Chat using NodeJS, Express, MongoDB and Socket.io" />
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Si BOOTSTRAP -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <title>Chat</title>
+    <script src="node_modules/socket.io/client-dist/socket.io.js"></script>
+    <!-- <script src="socket.io/socket.io.js"></script> -->
 </head>
 
 <body>
@@ -26,7 +25,21 @@
         <div id="messages">
         </div>
     </div>
-    <script src="assets/js/script.js "></script>
+    <script src="assets/js/client.js"></script>
+    <script src="connectdb.js"></script>
+
+    <script>
+        window.onload = function() {
+            document.getElementById("message").addEventListener("keyup", function(event) {
+                if (event.key === "Enter") {
+                    Client.sendMessages(document.getElementById("name").value, document.getElementById("message").value);
+                }
+            });
+            document.getElementById("send").addEventListener("mouseup", function(event) {
+                Client.sendMessages(document.getElementById("name").value, document.getElementById("message").value);
+            });
+        }
+    </script>
 </body>
 
 </html>
