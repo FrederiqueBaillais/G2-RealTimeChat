@@ -2,13 +2,13 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-function escapeHtml(text) {
+/*function escapeHtml(text) {
     return text.replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
-}
+}*/
 
 exports.signup = (req, res, next) => {
     //let usernam = escapeHtml(username);
