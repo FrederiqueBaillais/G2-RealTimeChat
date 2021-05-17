@@ -1,4 +1,4 @@
-# chat
+# Real Time chat
 
 
 <img src="https://raw.githubusercontent.com/yoavain/create-windowless-app/master/resources/docs/logo.gif">
