@@ -15,8 +15,8 @@
 
 ## Collaborators
 
-↪  [Frédérique Ballais](https://github.com/FrederiqueBaillais)  
-↪  [Michael Zeghe](https://github.com/Michael-Zerghe)  
+↪  [Frédérique Baillais](https://github.com/FrederiqueBaillais)  
+↪  [Michael Zerghe](https://github.com/Michael-Zerghe)  
 ↪  [Frédéric Galoppin](https://github.com/fredgaloppin)  
 ↪  [Abu Oblie](https://github.com/Abuoblie)   
 🌈 Thanks to our Mvp special Guest: [Stéphane Englebert](https://github.com/stephane-englebert)
