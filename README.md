@@ -15,7 +15,7 @@
 
 ## Collaborators
 
-↪  [Frédérique Ballais](https://github.com/https://github.com/FrederiqueBaillais)  
+↪  [Frédérique Ballais](https://github.com/FrederiqueBaillais)  
 ↪  [Michael Zeghe](https://github.com/Michael-Zerghe)  
 ↪  [Frédéric Galoppin](https://github.com/fredgaloppin)  
 ↪  [Abu Oblie](https://github.com/Abuoblie)   
