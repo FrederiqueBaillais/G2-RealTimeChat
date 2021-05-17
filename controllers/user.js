@@ -11,7 +11,7 @@ function escapeHtml(text) {
 }
 
 exports.signup = (req, res, next) => {
-    let usernam = escapeHtml(username);
+    //let usernam = escapeHtml(username);
     bcrypt
         .hash(req.body.password, 10)
         .then(hash => {
@@ -32,7 +32,7 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-    escapeHtml(username);
+    //escapeHtml(username);
     User.findOne({ username: req.body.username })
         .then(user => {
             if (!user) {

@@ -37,7 +37,7 @@ io.on("connection", socket => {
     socket.on("disconnect", () => chat.disconnect(socket, io));
 });
 
-const PORT = process.env.PORT || 8101;
+const PORT = process.env.PORT || 12001;
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
