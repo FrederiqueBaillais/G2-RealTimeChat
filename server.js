@@ -1,101 +1,45 @@
-const mongoose = require('mongoose'); // npm install mongoose
-const express = require('express'); // npm install express 
-const bodyparser = require('body-parser'); // npm install body-parser
+const path = require("path");
+const http = require("http");
+const express = require("express");
+const router = express.Router();
+const socketio = require("socket.io");
+const connectDB = require("./db");
+const chat = require("./utils/chat");
+const userRoutes = require("./routes/user");
+
 const app = express();
-const fs = require('fs'); // npm install fs
-const http = require('http').createServer(app); // npm install http
-const io = require('socket.io')(http); // npm install socket.io
-// npm install prototype // npm ci
-const path = require('path'); // npm install path
+const server = http.createServer(app);
+const io = socketio(server);
 
-const dbUrl = "mongodb+srv://FredBail:S3xBLma5CV3nHSd@cluster0.cbidg.mongodb.net/Cluster0?retryWrites=true&w=majority";
-const Message = mongoose.model('Message', { name: String, message: String });
+// Connect to MongoDB
+connectDB();
 
-mongoose.connect(dbUrl, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true
-    })
-    .then(() => { console.log('Connexion à MongoDB réussie !') })
-    .catch(() => { console.log('Connexion à MongoDB échouée !') });
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-const server = app.listen(3000, () => {
-    console.log('server is running on port', server.address().port);
-});
-app.use(express.static(__dirname));
+// Set static folder
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: false }));
+// Set routes
+app.use("/auth", userRoutes);
 
-app.get('/messages', (req, res) => {
-    Message.find({}, (err, messages) => {
-        console.log(messages);
-        res.send(messages);
-    })
+const chatBot = "ChatCord Bot";
+
+// Run when client connects
+io.on("connection", socket => {
+
+    socket.on("joinRoom", ({ username, room }) => chat.joinRoom(socket, io, username, room));
+
+    // Listen for chatMessage
+    socket.on("chatMessage", msg => chat.message(socket, io, msg));
+
+    // Runs when client disconnects
+    socket.on("disconnect", () => chat.disconnect(socket, io));
 });
 
-app.post('/messages', async(req, res) => {
-    try {
-        let message = new Message(req.body);
+const PORT = process.env.PORT || 8101;
 
-        let savedMessage = await message.save();
-        console.log('saved');
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-        let censored = await Message.findOne({ message: 'badword' });
-        if (censored) {
-            await Message.remove({ _id: censored.id });
-        } else {
-            io.emit('message', req.body);
-        }
-        res.sendStatus(200);
-    } catch (error) {
-        res.sendStatus(500);
-        return console.log('error', error);
-    } finally {
-        console.log('Message Posted');
-    }
-});
 
-io.on('connection', function(socket) {
-    console.log('a user is connected');
-    socket.on("conv", function(name, msg) { // conv = le contenu de l'entrée par l'utilisateur
-        console.log("that's ok");
-        addInDB(name, msg);
-        io.emit("tsmsg", name, msg); // tsmsg = tous les messagers
-    });
-
-});
-
-// ajoute les infos dans la DB
-function addInDB(username, messag) {
-    console.log('Ca fonctionne ?');
-
-    // get reference to database
-    let db = connexionMongo();
-
-    db.on('error', console.error.bind(console, 'connection error:'));
-
-    db.once('open', function() {
-        console.log("Connexion Successfull !");
-
-        // define Schema
-        var MsgSchema = mongoose.Schema({
-            name: String,
-            msg: String
-        });
-
-        // compile schema to model
-        let Msg = mongoose.model('conversation', MsgSchema, 'Cluster0');
-
-        // a document instance
-        let msg1 = new Msg({ name: username, msg: messag });
-
-        // save model to database
-        msg1.save(function(err, book) {
-            if (err) return console.error(err);
-            console.log(book.name + " added in collection.");
-
-        });
-
-    });
-}
+exports.chatBot = chatBot;

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+    </style>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Real Time Chat with NodeJS, Express, MongoDB and Socket.io</title>
+</head>
+
+<body>
+    <div class="image">
+        <img src="img/birdChat.svg">
+    </div>
+    <div class="row">
+        <div class="join-container col-sm-12 col-6">
+            <header class="join-header">
+                <h1>Register</h1>
+            </header>
+            <main class="join-main">
+                <form method="post" action="/auth/signup">
+                    <div class="form-control">
+                        <label for="username">New username</label>
+                        <input type="text" name="username" id="username" placeholder="Enter username..." required />
+                    </div>
+                    <div class="form-control">
+                        <label for="password">New password</label>
+                        <input type="password" name="password" id="password" placeholder="Enter password..." required />
+                    </div>
+                    <button type="submit" class="btn">Sign Up</button>
+                </form>
+            </main>
+        </div>
+
+        <div class="join-container col-sm-12 col-6">
+            <header class="join-header">
+                <h1>Login</h1>
+            </header>
+            <main class="join-main">
+                <form method="post" action="/auth/login">
+                    <div class="form-control">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" placeholder="Enter username..." required />
+                    </div>
+                    <div class="form-control">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Enter password..." required />
+                    </div>
+                    <div class="form-control" name="room" display: hidden>
+                        <label for="room">Room</label>
+                        <select name="room" id="room">
+                            <option value="Chat">Chat</option>
+                    </select>
+                    </div>
+                    <button type="submit" class="btn">Join Chat</button>
+                </form>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>
