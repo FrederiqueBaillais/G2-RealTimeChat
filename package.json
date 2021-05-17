@@ -1,13 +1,13 @@
 {
-    "name": "chatcord",
+    "name": "g2-realtimechat",
     "version": "1.0.0",
-    "description": "Realtime chat app with rooms",
+    "description": "Real time chat with NodeJS, Express, Socket.io and MongoDB",
     "main": "server.js",
     "scripts": {
         "start": "node server",
         "dev": "nodemon server"
     },
-    "author": "epictete",
+    "author": "FrederiqueBaillais",
     "license": "MIT",
     "dependencies": {
         "bcrypt": "^5.0.1",
