@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Set routes
 app.use("/auth", userRoutes);
 
-const chatBot = "ChatCord Bot";
+const chatBot = "Real time chat";
 
 // Run when client connects
 io.on("connection", socket => {
